@@ -1,0 +1,93 @@
+@startuml
+skin rose
+set separator none
+!pragma useIntermediatePackages false
+package Users.IdeaProjects.Taller2PA{
+    package Model{
+        class Perfil {
+            -nombreUsuario: String
+            -email: String
+            -contrasenia: String
+            -tipoPerfil: String
+            -ubicacion: String
+            -amigos: LinkedList<Perfil>
+            -listaDeSolicitud: LinkedList<Perfil>
+            -mensajesRecibidos: ArrayList<Mensaje>
+            -mensajesEnviados: ArrayList<Mensaje>
+            +Perfil(nombreUsuario: String, email: String, contrasenia: String)
+            +getNombreUsuario(): String
+            +setNombreUusario(nombre: String): void
+            +getEmail(): String
+            +setEmail(emailNuevo: String): void
+            +getContrasenia(): String
+            +setContrasenia(contraseniaNueva: String): void
+            +getTipoPerfil(): String
+            +setTipoPerfil(actualizacionTipo: String): void
+            +getUbicacion(): String
+            +setUbicacion(ubicacionNueva: String): String
+            +gestionarSolicitudes(): void
+            +verListaDeAmigos(): void
+            +verListaDeMensajesEnviados(): void
+            +verListaDeMensajesRecibidos()
+            +desplegarPerfil(): void
+        }
+
+        class Solicitud {
+            -destinatario: Perfil
+            -estado: String
+            -fechaDeCreacion: String
+            -ultimaActualizacion: String
+            +Solicitud(remitente: Perfil, destinatario: Perfil)
+            +getEstado(): String
+            +setEstado(actualizacionEstado: String): void
+            +getFechaDeCreacion(): String
+            +getUltimaActualizacion(): String
+            +setUltimaActualizacion(): void
+            +desplegarSolicitud(): void
+        }
+
+        class Mensaje {
+            -destinatario: Perfil
+            -contenido: String
+            -horaDeEnvio: String
+            +Mensaje(remitente: Perfil, destinatario: Perfil, contenido: String)
+            +getRemitente(): Perfil
+            +getDestinatario(): Perfil
+            +getContenido(): String
+            +getHoraDeEnvio(): String
+            +desplegarMensaje(): void
+        }
+        Perfil "1" --> "0..*" Mensaje: -remitente: Perfil
+        Perfil "1" --> "0..*" Solicitud: -remitente: Perfil
+    }
+    package Services{
+        interface Sistema{
+            +cargarInformacion(): void
+            +iniciarSesion(): void
+            +registroNuevo(): void
+            +editarPerfil(): void
+            +enviarSolicitud(): void
+            +verSolicitudes(): void
+            +enviarMensaje(): void
+            +verMensajes(): void
+            +buscarUsuario(): void
+            +actualizarInformacion(): void
+        }
+
+        class SistemaImpl{
+
+        }
+        Sistema "1" .|> "1" SistemaImpl
+        SistemaImpl "1" -> "0..*" Perfil: +perfiles: LinkedList<Perfil>
+    }
+    package Util{
+        class Utils{
+            -EMAIL_PATTERN: Pattern
+            +append(theStaticArray: T[], the object: T[]): T[]
+            +validarEmail(email: String): void
+        }
+        SistemaImpl "1"<--"1" Utils
+    }
+}
+
+@enduml

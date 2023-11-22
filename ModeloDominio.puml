@@ -1,0 +1,45 @@
+@startuml
+skin rose
+entity ListaDePerfiles{
+    cantidad maxima
+    cantidad actual
+}
+entity Perfil {
+    nombre
+    contrasenia
+    correo electronico
+    Ciudad de nacimiento
+    lista de amigos
+    lista de mensajes
+    lista de solicitudes
+}
+
+entity RegistroDeUsuario{
+    nombre del usuario
+    correo electronico
+    contrasenia
+}
+entity InicioDeSesion {
+    nombre del usuario
+    contrasenia
+}
+
+entity Mensaje {
+    remitente
+    destinatario
+    contenido
+    hora de envio
+}
+entity Solicitud{
+    remitente
+    destinatario
+    estado de la solicitud
+
+}
+
+RegistroDeUsuario "1" --"0...*" Perfil: Se registra un\nnuevo usuario >
+InicioDeSesion "1" -- "0...*" Perfil: Se inicia sesion >
+Perfil "1"-- "0..*" Mensaje: Envia >
+Perfil "1"-- "0..*" Solicitud: Envia >
+ListaDePerfiles "1"-"0..*" Perfil: Se alojan en <
+@enduml
