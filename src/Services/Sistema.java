@@ -29,12 +29,12 @@ public interface Sistema {
     /**
      * metodo que facilitara el registro de un nuevo usuario
      */
-    void registroNuevo();
+    void registroNuevo() throws IOException;
 
     /**
      * metodo que permitira enviar solicitudes entre usuarios
      */
-    void enviarSolicitud();
+    void enviarSolicitud() throws IOException;
 
     /**
      * metodo que permitira enviar mensajes entre usuarios
@@ -61,13 +61,13 @@ public interface Sistema {
      * metodo que permitira interactuar con el perfil una vez ya iniciada sesion
      * @param sistema a utilizar
      */
-    void menuPerfil(SistemaImpl sistema);
+    void menuPerfil(SistemaImpl sistema) throws IOException;
 
     /**
      * metodo que permitira interactuar con las solicitudes de un perfil
      * @param sistema a utilizar
      */
-    void menuSolicitud(SistemaImpl sistema);
+    void menuSolicitud(SistemaImpl sistema) throws IOException;
 
     /**
      * metodo que permitira interactuar con los mensajes de un perfil
@@ -78,12 +78,12 @@ public interface Sistema {
     /**
      * metodo que permitira al usuario eliminar un perfil de su lista de amigos
      */
-    void eliminarAmigo();
+    void eliminarAmigo() throws IOException;
 
     /**
      * metodo que permitira al usuario enviar una solicitud de amistad a otro usuario
      */
-    void agregarAmigo();
+    void agregarAmigo() throws IOException;
 
     /**
      * metodo que permitira ver la lista de mensajes enviados del usuario

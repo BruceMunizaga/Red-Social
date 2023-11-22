@@ -51,5 +51,6 @@ public class Main {
                 default-> StdOut.println("Opcion no valida");
             }
         }
+        StdOut.println("Hasta pronto!");
     }
 }

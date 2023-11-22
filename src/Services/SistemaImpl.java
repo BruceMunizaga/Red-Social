@@ -114,7 +114,7 @@ public class SistemaImpl implements Sistema{
     }
 
     @Override
-    public void registroNuevo() {
+    public void registroNuevo() throws IOException {
 
         //variables generales para el registro de un nuevo usuario
         String opcion = "";
@@ -122,6 +122,8 @@ public class SistemaImpl implements Sistema{
         String nombreNuevo;
         String correoNuevo;
         String contraseniaNueva;
+
+        //se solicitan datos al usuario
         while(!opcion.equalsIgnoreCase("1") && !opcion.equalsIgnoreCase("2")){
             StdOut.println("""
                 ¿Que tipo de perfil es?
@@ -137,14 +139,22 @@ public class SistemaImpl implements Sistema{
                 default -> StdOut.println("Opcion no valida");
             }
         }
+
+        //se siguen solicitando datos al usuario
         StdOut.print("Ingrese el nombre de usuario: ");
         nombreNuevo = StdIn.readString();
         StdOut.print("Ingrese la contraseña nueva: ");
         contraseniaNueva = StdIn.readString();
         StdOut.print("Ingrese el correo de la cuenta: ");
         correoNuevo = StdIn.readString();
+
+        //se valida que el email este correctamente construido
         Utils.validarEmail(correoNuevo);
+
+        //se agrega el nuevo perfil a la lista
         this.perfiles = Utils.append(this.perfiles, new Perfil(nombreNuevo,correoNuevo,contraseniaNueva,tipodePerfil, null));
+
+        //se busca el nuevo perfil en la lista para desplegarlo por pantalla
         for (int i = 0; i < this.perfiles.length; i++) {
             if (this.perfiles[i].getNombreUsuario().equalsIgnoreCase(nombreNuevo)){
                 this.usuario = this.perfiles[i];
@@ -153,11 +163,13 @@ public class SistemaImpl implements Sistema{
         }
         this.usuario.verPerfil();
 
+        //se actualiza la informacion
+        actualizarInformacion();
 
     }
 
     @Override
-    public void enviarSolicitud() {
+    public void enviarSolicitud() throws IOException {
         Perfil destinatario;
         StdOut.print("Ingrese el nombre del perfil a enviar la solicitud: ");
         String nombreDestinatario = StdIn.readString();
@@ -168,6 +180,9 @@ public class SistemaImpl implements Sistema{
         }else{
 
             destinatario.agregarSolicitud(this.usuario);
+
+            //se actualiza la informacion
+            actualizarInformacion();
         }
     }
 
@@ -207,6 +222,9 @@ public class SistemaImpl implements Sistema{
                 this.usuario.agregarMensajeEnviado(mensaje);
                 destinatario.agregarMensajeRecibido(mensaje);
 
+                //se actualiza la informacion en la base de datos
+                actualizarInformacion();
+
                 //en caso que el destinatario somos nosotros mismos, se notifica y no se sigue con el metodo
             }else{
                 StdOut.println("No puedes enviarte mensajes a ti mismo.");
@@ -227,7 +245,6 @@ public class SistemaImpl implements Sistema{
     @Override
     public void actualizarInformacion() throws IOException {
 
-        StdOut.println("Hasta pronto!");
         //guardo los perfiles.
         try (FileWriter writer = new FileWriter("perfiles.json")) {
             GSON.toJson(this.perfiles, writer);
@@ -263,7 +280,7 @@ public class SistemaImpl implements Sistema{
     }
 
     @Override
-    public void menuPerfil(SistemaImpl sistema) {
+    public void menuPerfil(SistemaImpl sistema) throws IOException {
         //opcion a validar en el menu del perfil
         String opcion = "";
 
@@ -295,6 +312,8 @@ public class SistemaImpl implements Sistema{
                 case "8"-> StdOut.println("Regresando al menu anterior...");
                 default-> StdOut.println("Opcion no valida");
             }
+
+            actualizarInformacion();
         }
     }
 
@@ -601,7 +620,7 @@ public class SistemaImpl implements Sistema{
     }
 
     @Override
-    public void menuSolicitud(SistemaImpl sistema) {
+    public void menuSolicitud(SistemaImpl sistema) throws IOException {
         //opcion a validar en el menu de solicitudes
         String opcion = "";
 
@@ -630,10 +649,11 @@ public class SistemaImpl implements Sistema{
                 default-> StdOut.println("Opcion no valida");
             }
         }
+        actualizarInformacion();
     }
 
     @Override
-    public void eliminarAmigo() {
+    public void eliminarAmigo() throws IOException {
 
         //variable del nombre del perfil a eliminar
         String amigoEliminar;
@@ -662,6 +682,9 @@ public class SistemaImpl implements Sistema{
                     if (this.perfiles[i].getNombreUsuario().equalsIgnoreCase(amigoEliminar)){
                         otroUsuario = this.perfiles[i];
                         boolean eliminadoDos = otroUsuario.eliminarAmigo(this.usuario.getNombreUsuario());
+
+                        //se actualiza la informacion en la base de datos
+                        actualizarInformacion();
                         break;
                     }
                 }
@@ -670,7 +693,7 @@ public class SistemaImpl implements Sistema{
     }
 
     @Override
-    public void agregarAmigo() {
+    public void agregarAmigo() throws IOException {
 
         //variable donde alojara el nombre del perfil a agregar
         String nombreNuevoAmigo;
@@ -701,6 +724,9 @@ public class SistemaImpl implements Sistema{
                 //en caso de no ser amigo del usuario, se agrega a la lista de solicitudes pendientes del otro perfil
                 if (!validador){
                     destinatario.agregarSolicitud(this.usuario);
+
+                    //se guarda la informacion en la base de datos
+                    actualizarInformacion();
                 }
             }
         }

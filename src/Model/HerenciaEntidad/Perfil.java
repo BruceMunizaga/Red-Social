@@ -258,7 +258,6 @@ public class Perfil implements Entidad {
                     default-> StdOut.println("Opcion no valida");
                 }
             }
-
         }
 
     }
