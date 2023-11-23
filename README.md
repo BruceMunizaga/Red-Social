@@ -32,3 +32,6 @@ El Taller N°2 fue exclusiva y unicamente realizado por el integrante Bruce Muni
 
 ## Sobre el uso de LinkedList y ArrayList
 Se decidió optar por usar LinkedList y ArrayList por la eficiencia y efectividad  a la hora de consumir recursos. 
+
+## Sobre el sistema guardado
+El codigo usa un sistema de guardado ramificado que consiste en almacenar los nodos en un archivo .json (perfiles.json). Además el codigo es capaz de guardar datos cuando su ejecución es interrumpida de forma inesperada.
