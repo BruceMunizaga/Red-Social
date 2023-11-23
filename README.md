@@ -7,7 +7,7 @@ El taller N°2 Impuesto por el Profesor Tomas Reimann en el ramo de Programació
 - gson-2.10.1
 - stdlib
 
-## Sobre la utilización de metodos relacionados a los archivos .json
+## Sobre la utilización de metodos relacionados al archivos .json
 En este taller se utilizaron metodos para la lectura y actualización de datos mediante un archivo .json ya que representa una forma efectiva de hacerlo. Metodos empleados:
 - Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 > Linea 24 de la clase SistemaImpl
@@ -28,7 +28,7 @@ Si es tu primera vez ejecutando el codigo, por defecto se cargaran 7 usuarios pa
 > Para obtener mayor información de cada perfil puede ir a la clase SistemaImpl de la linea 40 hasta la 46. Como también, ejecutar el metodo verPerfil().
 
 ## Sobre el autor del Taller N°2.
-El Taller N°2 fue exclusiva y unicamente realizado por el integrante Bruce Munizaga. 
+El Taller N°2 fue exclusiva y unicamente realizado por Bruce Munizaga. 
 
 ## Sobre el uso de LinkedList y ArrayList
 Se decidió optar por usar LinkedList y ArrayList por la eficiencia y efectividad  a la hora de consumir recursos. 
