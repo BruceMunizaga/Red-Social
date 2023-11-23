@@ -35,3 +35,5 @@ Se decidió optar por usar LinkedList y ArrayList por la eficiencia y efectivida
 
 ## Sobre el sistema de guardado
 El codigo usa un sistema de guardado ramificado que consiste en almacenar los nodos en un archivo .json (perfiles.json). Además el codigo es capaz de guardar datos cuando su ejecución es interrumpida de forma inesperada.
+
+> El archivo perfiles.json será el protagonista del guardado de datos, este se creará en su directorio una vez terminada la primera ejecución (los datos que el usuario haya manipulado durante la primera ejecución también serán guardados en el archivo).
